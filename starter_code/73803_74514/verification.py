@@ -1,26 +1,24 @@
 import numpy as np
 import cv2 as cv
 
-def verify_cuts(
+def compute_candidate_match_num(
     frames: list,
     candidates: np.ndarray,
     gap: int = 4,
-    min_matches: int = 20,
     ratio: float = 0.75,
 ) -> np.ndarray:
-    kept = []
+    match_list = []
     for candidate in candidates:
         cand_start_idx = candidate - gap
         cand_end_idx = candidate + gap
         if cand_start_idx < 0 or cand_end_idx >= len(frames):
-            kept.append(candidate)
+            match_list.append(0)
             continue
         cand_start = frames[cand_start_idx]
         cand_end = frames[cand_end_idx]
         matches, _, _ = sift_match(cand_start, cand_end, ratio)
-        if len(matches) < min_matches:
-            kept.append(candidate)
-    return np.asarray(kept)
+        match_list.append(len(matches))
+    return np.asarray(match_list)
 
 def sift_match(
     frame_a: np.ndarray,
