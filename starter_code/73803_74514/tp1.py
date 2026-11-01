@@ -2,8 +2,8 @@
 ## Computer Vision 2026-2027 - NOVA FCT
 ## Project Stage 1 - Shot boundary detection and recurring scenes
 ##
-## Student 1 (number)
-## Student 2 (number)
+## Rogério Soares (73803)
+## Guilherme Simões (74514)
 ##
 ###############################################################################
 
