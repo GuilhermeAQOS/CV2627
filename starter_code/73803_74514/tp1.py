@@ -16,6 +16,7 @@ import numpy as np
 
 import grouping   # group_shots: union-find grouping of shots (Part 3, Task 7)
 import metrics
+import scenes
 import signals
 import verification
 
@@ -25,6 +26,11 @@ HISTOGRAM_THRESHOLD = 0.5303082482993198
 MIN_SIFT_MATCHES = 15
 VERIFY_GAP = 4
 LOWE_RATIO = 0.75
+# Best scene grouping on dev_01 and dev_02 (Part 3 sweep).
+SCENE_FEATURE = "histogram"
+SCENE_KEYFRAMES = 3
+SCENE_RULE = "max"
+SCENE_THRESHOLD = 0.9503526364641616
 
 INPUT_DIR = os.path.join("..", "input")
 OUTPUT_DIR = os.path.join("..", "output")
@@ -61,8 +67,16 @@ def process_video(frames, gt_shots):
     transitions = [
         {"type": "cut", "start": int(t), "end": int(t)} for t in kept
     ]
-    scenes = {}  # Part 3
-    return transitions, scenes
+    sim = scenes.similarity_matrix(
+        frames,
+        gt_shots,
+        SCENE_FEATURE,
+        SCENE_KEYFRAMES,
+        SCENE_RULE,
+    )
+    labels = grouping.group_shots(sim, SCENE_THRESHOLD)
+    scene_dict = scenes.scene_labels(gt_shots, labels)
+    return transitions, scene_dict
 
 
 if __name__ == "__main__":
@@ -72,8 +86,8 @@ if __name__ == "__main__":
         name = os.path.splitext(os.path.basename(video_path))[0]
         gt = json.load(open(os.path.join(INPUT_DIR, name + ".json")))
         frames = read_frames(video_path)
-        transitions, scenes = process_video(frames, gt["shots"])
-        pred = {"video": name + ".mp4", "transitions": transitions, "scenes": scenes}
+        transitions, scene_dict = process_video(frames, gt["shots"])
+        pred = {"video": name + ".mp4", "transitions": transitions, "scenes": scene_dict}
         with open(os.path.join(OUTPUT_DIR, name + ".json"), "w") as f:
             json.dump(pred, f, indent=1, default=int)    # default=int: accepts NumPy integers
         results[name] = metrics.evaluate_video(gt, pred)
