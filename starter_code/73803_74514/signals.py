@@ -20,6 +20,24 @@ def color_histogram(frame, bins=16):
     return hist / 3                               # whole histogram sums to 1
 
 
+def grayscale_histogram_signal(frames: list, num_bins: int = 256) -> np.ndarray:
+    """One value per frame. d(0) = 0; d(t) is the L1 distance of grey histograms."""
+    if len(frames) < 2:
+        return np.zeros(len(frames), dtype=np.float64)
+    histogram_diff = absolute_histogram_differences(
+        frames, num_bins=num_bins, color_space="GRAY"
+    )
+    score = np.sum(np.abs(histogram_diff), axis=1)
+    return np.concatenate(([0.0], score))
+
+
+#Histogram Distance measurement
+def histogram_chi_sqrd_distances(frames: np.ndarray, color_space: str = 'RGB') -> np.ndarray:
+    if color_space == 'RGB':
+        rgb_frames = [cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) for frame in frames]
+        red_frames = [frame[:, :, 0] for frame in rgb_frames]
+        green_frames = [frame[:, :, 1] for frame in rgb_frames]
+        blue_frames = [frame[:, :, 2] for frame in rgb_frames]
 def histogram_distance(h1, h2):
     """Chi-square distance between two histograms (0 = identical)."""
     return 0.5 * np.sum((h1 - h2) ** 2 / (h1 + h2 + 1e-10))

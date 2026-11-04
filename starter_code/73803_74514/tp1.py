@@ -2,8 +2,8 @@
 ## Computer Vision 2026-2027 - NOVA FCT
 ## Project Stage 1 - Shot boundary detection and recurring scenes
 ##
-## Student 1 (number)
-## Student 2 (number)
+## Rogério Soares (73803)
+## Guilherme Simões (74514)
 ##
 ###############################################################################
 
@@ -16,6 +16,15 @@ import numpy as np
 
 import grouping   # group_shots: union-find grouping of shots (Part 3, Task 7)
 import metrics
+import signals
+import verification
+
+# Best grayscale-histogram threshold on dev_01 and dev_02 (Part 1 sweep).
+HISTOGRAM_THRESHOLD = 0.5303082482993198
+# Minimum SIFT matches at which a candidate is rejected (Part 2, best dev F1).
+MIN_SIFT_MATCHES = 15
+VERIFY_GAP = 4
+LOWE_RATIO = 0.75
 
 INPUT_DIR = os.path.join("..", "input")
 OUTPUT_DIR = os.path.join("..", "output")
@@ -40,8 +49,19 @@ def process_video(frames, gt_shots):
     transitions: list of {"type": "cut", "start": t, "end": t}, t = first frame of the new shot (Parts 1 and 2)
     scenes:      dict {str(shot id): label} for the ground-truth shots (Part 3)
     """
-    transitions, scenes = [], {}
-    # TODO: Parts 1, 2 and 3. Everything else (writing the output, evaluation, summary table) is done for you.
+    signal = signals.grayscale_histogram_signal(frames)
+    candidates = np.where(signal > HISTOGRAM_THRESHOLD)[0]
+    kept = verification.verified_cuts(
+        frames,
+        candidates,
+        min_matches=MIN_SIFT_MATCHES,
+        gap=VERIFY_GAP,
+        ratio=LOWE_RATIO,
+    )
+    transitions = [
+        {"type": "cut", "start": int(t), "end": int(t)} for t in kept
+    ]
+    scenes = {}  # Part 3
     return transitions, scenes
 
 

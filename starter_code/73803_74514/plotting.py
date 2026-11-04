@@ -29,10 +29,10 @@ def plot_signals(signals, gt, start=0, end=None, path=None):
                 ax.axvline(t["start"], color="tab:red", ls="--", lw=0.8, label="ground-truth cut" if i == 0 else None)
         for f in gt["distractors"]:
             if start <= f["start"] < end:
-                ax.axvspan(f["start"] - 0.5, f["end"] + 0.5, color="tab:orange", alpha=0.4)
+                ax.axvspan(f["start"] - 0.5, f["end"] + 0.5, color="tab:black", alpha=0.4)
         ax.set_ylabel(name)
     axes[-1, 0].set_xlabel("frame index t")
-    axes[0, 0].set_title(f"{gt['video']}: red dashed = ground-truth cuts, orange = flashes")
+    axes[0, 0].set_title(f"{gt['video']}: red dashed = ground-truth cuts, black = flashes")
     fig.tight_layout()
     if path:
         fig.savefig(path, dpi=150)
