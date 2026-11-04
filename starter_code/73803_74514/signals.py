@@ -24,10 +24,13 @@ def grayscale_histogram_signal(frames: list, num_bins: int = 256) -> np.ndarray:
     """One value per frame. d(0) = 0; d(t) is the L1 distance of grey histograms."""
     if len(frames) < 2:
         return np.zeros(len(frames), dtype=np.float64)
-    histogram_diff = absolute_histogram_differences(
-        frames, num_bins=num_bins, color_space="GRAY"
-    )
-    score = np.sum(np.abs(histogram_diff), axis=1)
+    histograms = []
+    for frame in frames:
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        hist = np.histogram(gray, bins=num_bins, range=(0, 256))[0].astype(np.float64)
+        histograms.append(hist / hist.sum())
+    histograms = np.stack(histograms)
+    score = np.sum(np.abs(np.diff(histograms, axis=0)), axis=1)
     return np.concatenate(([0.0], score))
 
 
@@ -58,7 +61,6 @@ def edge_change_ratio(f1, f2, kernel_size=5):
     r_in = x_in / np.sum(e2) if np.sum(e2) > 0 else 0.0
     r_out = x_out / np.sum(e1) if np.sum(e1) > 0 else 0.0
     return max(r_in, r_out)
-
 
 def compute_signals(frames, bins=16):
     n = len(frames)
