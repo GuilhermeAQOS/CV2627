@@ -1,0 +1,191 @@
+{
+ "video": "test_02.mp4",
+ "transitions": [
+  {
+   "type": "cut",
+   "start": 207,
+   "end": 207
+  },
+  {
+   "type": "cut",
+   "start": 681,
+   "end": 681
+  },
+  {
+   "type": "cut",
+   "start": 790,
+   "end": 790
+  },
+  {
+   "type": "cut",
+   "start": 821,
+   "end": 821
+  },
+  {
+   "type": "cut",
+   "start": 896,
+   "end": 896
+  },
+  {
+   "type": "cut",
+   "start": 1041,
+   "end": 1041
+  },
+  {
+   "type": "cut",
+   "start": 1229,
+   "end": 1229
+  },
+  {
+   "type": "cut",
+   "start": 1231,
+   "end": 1231
+  },
+  {
+   "type": "cut",
+   "start": 1233,
+   "end": 1233
+  },
+  {
+   "type": "cut",
+   "start": 1235,
+   "end": 1235
+  },
+  {
+   "type": "cut",
+   "start": 1236,
+   "end": 1236
+  },
+  {
+   "type": "cut",
+   "start": 1240,
+   "end": 1240
+  },
+  {
+   "type": "cut",
+   "start": 1295,
+   "end": 1295
+  },
+  {
+   "type": "cut",
+   "start": 1320,
+   "end": 1320
+  },
+  {
+   "type": "cut",
+   "start": 1534,
+   "end": 1534
+  },
+  {
+   "type": "cut",
+   "start": 1576,
+   "end": 1576
+  },
+  {
+   "type": "cut",
+   "start": 1686,
+   "end": 1686
+  },
+  {
+   "type": "cut",
+   "start": 1765,
+   "end": 1765
+  },
+  {
+   "type": "cut",
+   "start": 1897,
+   "end": 1897
+  },
+  {
+   "type": "cut",
+   "start": 2012,
+   "end": 2012
+  },
+  {
+   "type": "cut",
+   "start": 2093,
+   "end": 2093
+  },
+  {
+   "type": "cut",
+   "start": 2175,
+   "end": 2175
+  },
+  {
+   "type": "cut",
+   "start": 2378,
+   "end": 2378
+  },
+  {
+   "type": "cut",
+   "start": 2394,
+   "end": 2394
+  },
+  {
+   "type": "cut",
+   "start": 2395,
+   "end": 2395
+  },
+  {
+   "type": "cut",
+   "start": 2481,
+   "end": 2481
+  },
+  {
+   "type": "cut",
+   "start": 2574,
+   "end": 2574
+  },
+  {
+   "type": "cut",
+   "start": 2656,
+   "end": 2656
+  },
+  {
+   "type": "cut",
+   "start": 2837,
+   "end": 2837
+  },
+  {
+   "type": "cut",
+   "start": 2912,
+   "end": 2912
+  },
+  {
+   "type": "cut",
+   "start": 3062,
+   "end": 3062
+  },
+  {
+   "type": "cut",
+   "start": 3197,
+   "end": 3197
+  },
+  {
+   "type": "cut",
+   "start": 3274,
+   "end": 3274
+  },
+  {
+   "type": "cut",
+   "start": 3370,
+   "end": 3370
+  },
+  {
+   "type": "cut",
+   "start": 3543,
+   "end": 3543
+  },
+  {
+   "type": "cut",
+   "start": 3621,
+   "end": 3621
+  },
+  {
+   "type": "cut",
+   "start": 3724,
+   "end": 3724
+  }
+ ],
+ "scenes": {}
+}

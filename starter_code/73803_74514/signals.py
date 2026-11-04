@@ -68,6 +68,17 @@ def absolute_histogram_differences(frames: list, num_bins: int = 256, color_spac
 
         return gray_histogram_diff
 
+def grayscale_histogram_signal(frames: list, num_bins: int = 256) -> np.ndarray:
+    """One value per frame. d(0) = 0; d(t) is the L1 distance of grey histograms."""
+    if len(frames) < 2:
+        return np.zeros(len(frames), dtype=np.float64)
+    histogram_diff = absolute_histogram_differences(
+        frames, num_bins=num_bins, color_space="GRAY"
+    )
+    score = np.sum(np.abs(histogram_diff), axis=1)
+    return np.concatenate(([0.0], score))
+
+
 #Histogram Distance measurement
 def histogram_chi_sqrd_distances(frames: np.ndarray, color_space: str = 'RGB') -> np.ndarray:
     if color_space == 'RGB':
